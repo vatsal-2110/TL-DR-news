@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input and Output Columns</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* heig/ht: 100vh; */
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 50%;
+      max-width: 600px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .column {
+      background: #f1f1f1;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .column h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .input-group input,
+    .output {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .output {
+      background-color: #e9ecef;
+      color: #333;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Input -->
+    <div class="column">
+      <h3>Input</h3>
+      <div class="input-group">
+        <label for="input1">Category:</label>
+        <input type="text" id="input1" placeholder="Enter category">
+      </div>
+      <div class="input-group">
+        <label for="input2">Number of articles:</label>
+        <input type="text" id="input2" placeholder="Enter value">
+      </div>
+      <button onclick="generateOutput()">Generate Output</button>
+    </div>
+
+    <!-- Output Column -->
+    <div class="column">
+      <h3>Output </h3>
+      <div class="input-group">
+        <label for="output"></label>
+        <!-- <textarea id="output" class="output" readonly placeholder="Output will appear here..."> -->
+        <div id="output">
+            Output will appear here...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function generateOutput() {
+        const input1 = document.getElementById('input1').value.toString();
+        const input2 = document.getElementById('input2').value.toString();
+        // input1 = str(input1);
+        // input2 = str(input2);
+        try {
+            // console.log("Enter");
+            // console.log(input1);
+            // console.log(input2);
+            console.log(`http://127.0.0.1:5000/?category=${input1}&number=${input2}`);
+            const response = await fetch(`http://127.0.0.1:5000/?category=${input1}&number=${input2}`); // Replace with a real API endpoint
+            // console.log(response);
+            const data = await response.json();
+            // console.log(data);
+
+            if (data && data.result) {
+                document.getElementById('output').innerText = data.result;
+            }
+        } catch (error) {
+            console.error('Error fetching API:', error);
+        }
+    }
+  </script>
+</body>
+</html>

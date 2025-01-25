@@ -1,0 +1,48 @@
+version: "0.0.2"
+
+metadata:
+  name: "ai-reporter"
+  description: "Too long didn't read the news, this AI agent will provide you with the latest news of your interest"
+  author: "vatsal2110"
+  tags: ["news","reporter"]
+  private: true
+
+inputs:
+  category:
+    type: string
+    description: "genre of the news"
+    required: true
+    example: "sports, national, international, politics"
+  number:
+    type: string
+    description: "number of articles"
+    required: true
+    example: "1"
+
+model:
+  provider: "openai"
+  name: "gpt-4o"
+
+dataset:
+  source : "vatsal2110/news-data-2"
+
+prompt: |
+  give {number} summarised news articles on the topic {category} from the dataset which contain news websites, scrap some news from that and provide. Provide the top news headlines.  
+
+
+readme: |
+  AI News Reporter Flow
+  A user-friendly interface that delivers personalized, up-to-date news based on individual interests.
+
+  Features
+  Customized news feed tailored to user preferences
+  Real-time updates on latest news stories
+  AI-powered content curation for relevance and accuracy
+  Multi-topic coverage to cater to diverse interests
+  Easy-to-use interface for seamless news consumption
+  How to Use
+  Sign up or log in to the AI News Reporter platform
+  Set your news preferences and topics of interest
+  Browse the personalized news feed on your dashboard
+  Click on articles to read full stories
+  Adjust preferences as needed to refine your news feed
